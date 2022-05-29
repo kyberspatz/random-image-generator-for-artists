@@ -41,6 +41,7 @@ button {
 	<h2 id="header">Speedart</h2>
 	<p id="infotext">Try to draw / sketch a random image from Unsplash.com. Enter a duration and press START</p>
 	<p id="secondsinput">Duration in seconds: <input type="number" id="seconds" value="120" style="margin-right:2em;"></p>
+	<p id="searchinput">Topic: <input type="text" id="topic" value="[random]" style="margin-right:2em;"></p>
 	<button onclick="start(document.getElementById('seconds').value);" autofocus id="startbutton">Start</button>
 	<a href="?" id="reloadbutton"><button >Reload</button></a>
 	<img src="" id="randomimg"><br>
@@ -86,11 +87,23 @@ button {
 	document.getElementById("header").style.display="none";
 	document.getElementById("infotext").style.display="none";
 	document.getElementById("secondsinput").style.display="none";
+	document.getElementById("searchinput").style.display="none";
 	document.getElementById("startbutton").style.display="none";
 	document.getElementById("canceldrawing").style.display="block";
+	document.getElementById("topic").style.display="none";
 	
+	topic = document.getElementById("topic").value;
 	
-	img.src="https://source.unsplash.com/random/600x400";
+	 // https://code-boxx.com/strip-remove-html-tags-javascript/
+	function stripTags (original) {
+		return original.replace(/(<([^>]+)>)/gi, "");
+	}
+	
+	topic = stripTags(topic);
+	topic = topic.replace(/ /g,",");
+	if(topic == "[random]"){topic="";}
+	//img.src="https://source.unsplash.com/random/600x400";
+	img.src="https://source.unsplash.com/random/600x400?"+topic;
 	img.style.display="block";
 	const myTimeout = setTimeout(playsound, seconds*1000);
 

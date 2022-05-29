@@ -9,10 +9,13 @@ WARNING: This Software is merely a draft. There is no Guarantee for anything. Us
 html { 
 	background: linear-gradient(90deg, #e3ffe7 0%, #d9e7ff 100%);
 	overflow:hidden;
+	padding:1em;
+	font-family: 'Trebuchet MS', sans-serif;
 	}
 	
 button {
 	font-size:2em;
+	border-radius:15%;
 	}
 
 /*https://reactgo.com/css-center-images/*/
@@ -30,13 +33,20 @@ button {
   max-height:100%;
 }
 
-#randomimg, #reloadbutton {display:none;}
+#randomimg, #reloadbutton, #canceldrawing {display:none;}
 </style>
 
 <div class="center-image">
-	<button onclick="start(120);" autofocus id="startbutton">Start</button>
+	<div>
+	<h2 id="header">Speedart</h2>
+	<p id="infotext">Try to draw / sketch a random image from Unsplash.com. Enter a duration and press START</p>
+	<p id="secondsinput">Duration in seconds: <input type="number" id="seconds" value="120" style="margin-right:2em;"></p>
+	<button onclick="start(document.getElementById('seconds').value);" autofocus id="startbutton">Start</button>
 	<a href="?" id="reloadbutton"><button >Reload</button></a>
-	<img src="" id="randomimg">
+	<img src="" id="randomimg"><br>
+	<a href="?" id="canceldrawing">cancel drawing</a>
+	</div>
+	
 </div>
 <!--/* This Sound is CC0 (Public Domain) thx to https://freesound.org/people/Eponn/sounds/619835 */-->
 <audio id="gong" style="display:none;">
@@ -73,8 +83,13 @@ button {
 	openFullscreen();
 	/*document.getElementById("randomimg").src="https://source.unsplash.com/random/1050x750";*/
 	img = document.getElementById("randomimg")
-	button = document.getElementById("startbutton")
-	button.style.display="none";
+	document.getElementById("header").style.display="none";
+	document.getElementById("infotext").style.display="none";
+	document.getElementById("secondsinput").style.display="none";
+	document.getElementById("startbutton").style.display="none";
+	document.getElementById("canceldrawing").style.display="block";
+	
+	
 	img.src="https://source.unsplash.com/random/600x400";
 	img.style.display="block";
 	const myTimeout = setTimeout(playsound, seconds*1000);
@@ -89,6 +104,7 @@ button {
 	  clearTimeout(myTimeout);
 	  document.getElementById("randomimg").src="";
 	  document.getElementById("reloadbutton").style.display="block";
+	  document.getElementById("canceldrawing").style.display="none";
 	  closeFullscreen();
 	  
 	}

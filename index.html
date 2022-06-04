@@ -1,5 +1,5 @@
 <!--
-WARNING: This Software is merely a draft. There is no Guarantee for anything. Use this draft at your own risk.
+WARNING: This Software is merely a draft. There is no guarantee for anything. Use this draft at your own risk or develop it to your desire.
 -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -42,6 +42,7 @@ button {
 	<h2 id="header">Speedart</h2>
 	<p id="infotext">Try to draw / sketch a random image from Unsplash.com. Enter a duration and press START</p>
 	<p id="secondsinput">Duration in seconds: <input type="number" id="seconds" value="120" style="margin-right:2em;"></p>
+	<p id="imgurlinput">External image instead of Unsplash? Enter: <input type="text" id="imgurl" placeholder="https://xxxxxxxxx/yourimage.jpg" style="margin-right:2em;"></p>
 	<p id="searchinput">Topic: <input type="text" id="topic" value="[random]" style="margin-right:2em;"></p>
 	<button onclick="start(document.getElementById('seconds').value);" autofocus id="startbutton">Start</button>
 	<img src="" id="randomimg">
@@ -95,6 +96,7 @@ button {
 	document.getElementById("canceldrawing").style.display="block";
 	document.getElementById("timer").style.display="block";
 	document.getElementById("topic").style.display="none";
+	document.getElementById("imgurlinput").style.display="none";
 	
 	topic = document.getElementById("topic").value;
 	
@@ -105,9 +107,14 @@ button {
 	
 	topic = stripTags(topic);
 	topic = topic.replace(/ /g,",");
-	if(topic == "[random]"){topic="";}
+	imgurl = ""
+	if(topic == "[random]"){topic="";
+	imgurl = document.getElementById("imgurl").value;
+	
+	}
 	//img.src="https://source.unsplash.com/random/600x400";
 	img.src="https://source.unsplash.com/random/600x400?"+topic;
+	if (imgurl !== null || imgurl !== ""){img.src = imgurl;}
 	img.style.display="block";
 	const wait = 3;
 	countdownseconds =parseInt(seconds, 10)+wait
@@ -143,5 +150,9 @@ button {
 
 	}
 	
-</script>
 
+		
+
+
+
+</script>
